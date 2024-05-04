@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View ,Text} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import AddDeviceScreen from '../screens/AddDeviceScreen';
 import HelpScreen from '../screens/HelpScreen';
@@ -11,118 +11,95 @@ import HomeIcon from '../assets/svgs/homeIcon';
 import Smartswitch from '../assets/svgs/smartswitch';
 import Help from '../assets/svgs/help';
 import AddDevice from '../assets/svgs/addDevice';
+import {View,Text} from 'react-native';
 
-import LaunchScreen from '../screens/LaunchScreen';
 const Tab = createBottomTabNavigator();
 const screenOptions = {
-  headerShown:false ,
-  tabBarShowLabel:false,
-  tabBarStyle : {
-
-    position : "absolute ",
-    bottom : 0,
-    right : 0,
-    left : 0,
-    elevation : 0,
-    height : 62,
-    background : '#fff',
-    padding:6,
+  headerShown: false,
+  tabBarShowLabel: false,
+  tabBarStyle: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    elevation: 0,
+    height: 62,
+    backgroundColor: '#fff',
+    padding: 6,
   },
-}
+};
+
+const HomeStack = createStackNavigator();
+
+const HomeStackNavigator = () => (
+  <HomeStack.Navigator>
+    <HomeStack.Screen
+      name="HomeScreen"
+      component={HomeScreen}
+      options={{ headerShown: false }}
+    />
+    <HomeStack.Screen
+      name="AddDeviceScreen"
+      component={AddDeviceScreen}
+      options={{ headerShown: false, tabBarVisible: false }} // Hide the tab bar for this screen
+    />
+  </HomeStack.Navigator>
+);
 
 export default function AppNavigation() {
   return (
-   
-    <Tab.Navigator 
-    screenOptions={screenOptions}
-  >
-
-         <Tab.Screen
+    <Tab.Navigator
+      screenOptions={screenOptions}
+    >
+      <Tab.Screen
         name="Home"
-        component={ /*LaunchScreen*/HomeScreen}
-        options={{ 
-          
-          tabBarIcon: ({focused}) => {
-            return(
-              <View style={{alignitems :  ' center ', justifycontent: 'center '}}>
-                <View style={tw `ml-1 `}>
-                 <HomeIcon />  
-                </View>
-                <Text style={{fontSize:11 , color : focused ? colors.maingreen : colors.maingrey,paddingBottom:5}}>Home</Text> 
-              </View>
-            )
-            
-            
-            },
-          tabBarLabelStyle: { color: colors.navigation},
-        }}
-      />
-{/* <Tab.Screen
-        name="Add device"
-        component={AddDeviceScreen}
-        options={{ 
-          headerShown:false ,
-          tabBarIcon: ({ focused }) => {
-            return (
-
-              <View style={{alignitems :  ' center ', justifycontent: 'center '}}>
-              <View style={tw `ml-3 `}>
-               <AddDevice color={focused ? colors.maingreen : colors.maingrey}/>
-              </View>
-              <Text style={{fontSize:11 , color : focused ? colors.maingreen : colors.maingrey,paddingBottom:10}}>Add device</Text> 
-            </View>
-         
-                 
-                
-           
-            )
-          },
-          tabBarLabelStyle: { color: colors.navigation},
-        }}
-      /> */}
-
-     <Tab.Screen
-        name="Smart switch"
-        component={SmartSwitchScreen}
+        component={HomeStackNavigator}
         options={{
-          headerShown:false,
-          tabBarIcon: ({focused}) => (
-            <View style={{alignitems :  ' center ', justifycontent: 'center '}}>
-              <View style={tw `ml-5 `}>
-               <Smartswitch/>
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={tw`ml-1`}>
+                <HomeIcon />
               </View>
-              <Text style={{fontSize:11 , color : focused ? colors.maingreen : colors.maingrey,paddingBottom:10}}>Smart switch</Text> 
+              <Text style={{ fontSize: 11, color: focused ? colors.maingreen : colors.maingrey, paddingBottom: 5 }}>Home</Text>
             </View>
-            
           ),
           tabBarLabelStyle: { color: colors.navigation },
         }}
       />
 
-
-
-<Tab.Screen
-  name="Help"
-  component={HelpScreen}
-  options={{
-    headerShown: false,
-    tabBarIcon: ({ focused }) => (
-      <View style={{alignitems :  ' center ', justifycontent: 'center '}}>
-              <View >
-              <Help/>
+      <Tab.Screen
+        name="Smart switch"
+        component={SmartSwitchScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={tw`ml-5`}>
+                <Smartswitch />
               </View>
-              <Text style={{fontSize:11 , color : focused ? colors.maingreen : colors.maingrey,paddingBottom:10}}>Help</Text> 
+              <Text style={{ fontSize: 11, color: focused ? colors.maingreen : colors.maingrey, paddingBottom: 10 }}>Smart switch</Text>
             </View>
-      
-    ),
-    tabBarLabelStyle: { color: colors.navigation }, // Set text color
-  }}
-/>
+          ),
+          tabBarLabelStyle: { color: colors.navigation },
+        }}
+      />
 
-      
+      <Tab.Screen
+        name="Help"
+        component={HelpScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View>
+                <Help />
+              </View>
+              <Text style={{ fontSize: 11, color: focused ? colors.maingreen : colors.maingrey, paddingBottom: 10 }}>Help</Text>
+            </View>
+          ),
+          tabBarLabelStyle: { color: colors.navigation }, // Set text color
+        }}
+      />
     </Tab.Navigator>
-
-   
-    
   );
 }

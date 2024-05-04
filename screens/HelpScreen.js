@@ -9,7 +9,9 @@ import { colors } from '../theme/constants';
 import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import Logo from '../assets/svgs/logo';
-import ConnectModal from '../components/Modal';
+
+
+
 
 export default function HelpScreen() {
 
@@ -37,7 +39,6 @@ export default function HelpScreen() {
         </TouchableOpacity>
       </View>
       </View>
-      <ConnectModal isVisible={true} isConnected={modalConnected}/>
     </ScreenWrapper>
   )
 }

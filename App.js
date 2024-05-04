@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import tw from 'twrnc';
 import { View } from 'react-native';
